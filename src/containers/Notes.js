@@ -10,7 +10,7 @@ import "./Notes.css"; // Importing the CSS file for styles
 
 export default function Notes() {
   const file = useRef(null);
-  const { id } = useParams();
+  const { noteid } = useParams();
   const navigate = useNavigate();
   const [note, setNote] = useState(null);
   const [content, setContent] = useState("");
@@ -19,7 +19,7 @@ export default function Notes() {
 
   useEffect(() => {
     function loadNote() {
-      return API.get("notes", `/notes/${id}`);
+      return API.get("notes", `/notes/${noteid}`);
     }
 
     async function onLoad() {
@@ -37,7 +37,7 @@ export default function Notes() {
     }
 
     onLoad();
-  }, [id]);
+  }, [noteid]);
 
   function validateForm() {
     return content.length > 0;
@@ -52,7 +52,7 @@ export default function Notes() {
   }
 
   async function saveNote(note) {
-    return API.put("notes", `/notes/${id}`, {
+    return API.put("notes", `/notes/${noteid}`, {
       body: note
     });
   }
@@ -86,7 +86,7 @@ export default function Notes() {
   }
 
   async function deleteNote() {
-    return API.del("notes", `/notes/${id}`);
+    return API.del("notes", `/notes/${noteid}`);
   }
 
   async function handleDelete(event) {

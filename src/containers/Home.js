@@ -7,6 +7,7 @@ import { API } from "aws-amplify"; // Import the Amplify API module
 import { BsPencilSquare } from "react-icons/bs"; // Import BsPencilSquare icon
 import { LinkContainer } from "react-router-bootstrap"; // Import LinkContainer
 
+
 export default function Home() {
     const [notes, setNotes] = useState([]);
     const { isAuthenticated } = useAppContext();
@@ -14,9 +15,7 @@ export default function Home() {
 
     useEffect(() => {
         async function onLoad() {
-            if (!isAuthenticated) {
-                return;
-            }
+            if (!isAuthenticated) return;
             try {
                 const notes = await loadNotes();
                 setNotes(notes);
@@ -26,7 +25,7 @@ export default function Home() {
             setIsLoading(false);
         }
         onLoad();
-    }, [isAuthenticated]);
+    }, [isAuthenticated]); 
 
     function loadNotes() {
         return API.get("notes", "/notes");
@@ -41,8 +40,8 @@ export default function Home() {
                         <span className="ml-2 font-weight-bold">Create a new note</span>
                     </ListGroup.Item>
                 </LinkContainer>
-                {notes.map(({ noteId, content, createdAt }) => (
-                    <LinkContainer key={noteId} to={`/notes/${noteId}`}>
+                {notes.map(({ noteid, content, createdAt }) => (
+                    <LinkContainer key={noteid} to={`/notes/${noteid}`}>
                         <ListGroup.Item action>
                             <span className="font-weight-bold">
                                 {content.trim().split("\n")[0]}

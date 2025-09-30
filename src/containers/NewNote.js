@@ -9,6 +9,7 @@ import { onError } from "../libs/errorLib";
 import config from "../config";
 import "./NewNote.css";
 
+
 export default function NewNote() {
     const file = useRef(null);
     const navigate = useNavigate();
@@ -37,7 +38,10 @@ export default function NewNote() {
         try {
         const attachment = file.current ? await s3Upload(file.current) : null;
         await createNote({ content, attachment });
-        navigate("/");
+        
+        navigate("/", { replace: true }); // optional
+        window.location.reload(); // forces Home to fetch notes again
+
         } catch (e) {
         onError(e);
         setIsLoading(false);

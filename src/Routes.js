@@ -16,7 +16,7 @@ export default function MyRoutes() {
             <UnauthenticatedRoute exact path="/login" element={<Login />} />
             <UnauthenticatedRoute exact path="/signup" element={<Signup />} />
             <AuthenticatedRoute exact path="/notes/new" element={<NewNote />} />
-            <AuthenticatedRoute exact path="/notes/:id" element={<Notes />} />
+            <AuthenticatedRoute exact path="/notes/:noteid" element={<Notes />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

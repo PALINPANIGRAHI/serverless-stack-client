@@ -1,17 +1,17 @@
 const config = {
     s3: {
     REGION: "us-east-1",
-    BUCKET: "notes-bucket-siba",
+    BUCKET: "palin-note-upload",
     },
     apiGateway: {
     REGION: "us-east-1",
-    URL: "https://h5dyftflz3.execute-api.us-east-1.amazonaws.com/prod",
+    URL: "https://fnot7nxyzk.execute-api.us-east-1.amazonaws.com/prod",
 },
 cognito: {
 REGION: "us-east-1",
-USER_POOL_ID: "us-east-1_uz11GiMgx",
-APP_CLIENT_ID: "p7v78d36fnb5btg109j0l5ijd",
-IDENTITY_POOL_ID: "us-east-1:df5c541d-b0b4-4066-8fdc-b963d5a4fa3e",
+USER_POOL_ID: "us-east-1_6rzmEx27T",
+APP_CLIENT_ID: "cp9jv72pe9cjsi6lt8tpsossk",
+IDENTITY_POOL_ID: "us-east-1:46519a4d-38c1-4778-bb7e-d7db06667388",
 },
 MAX_ATTACHMENT_SIZE: 5000000, // 5MB
 };
