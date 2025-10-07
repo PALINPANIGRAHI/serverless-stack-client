@@ -3,7 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import "./Home.css";
-import { API } from "aws-amplify"; // Import the Amplify API module
+import { API, Auth } from "aws-amplify"; // Import the Amplify API module
 import { BsPencilSquare } from "react-icons/bs"; // Import BsPencilSquare icon
 import { LinkContainer } from "react-router-bootstrap"; // Import LinkContainer
 
@@ -12,6 +12,7 @@ export default function Home() {
     const [notes, setNotes] = useState([]);
     const { isAuthenticated } = useAppContext();
     const [isLoading, setIsLoading] = useState(true);
+    const [queries, setQueries] = useState([]);
 
     useEffect(() => {
         async function onLoad() {
@@ -19,6 +20,8 @@ export default function Home() {
             try {
                 const notes = await loadNotes();
                 setNotes(notes);
+
+                await loadQueries();
             } catch (e) {
                 onError(e);
             }
@@ -30,6 +33,17 @@ export default function Home() {
     function loadNotes() {
         return API.get("notes", "/notes");
     }
+     async function loadQueries() {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const email = user.attributes.email;
+
+      const result = await API.get("notes", `/user-queries/${email}`);
+      setQueries(result);
+    } catch (e) {
+      console.error("Error loading queries:", e);
+    }
+  }
 
     function renderNotesList(notes) {
         return (
@@ -56,6 +70,29 @@ export default function Home() {
             </>
         );
     }
+    function renderQueriesList() {
+    return (
+      <div className="queries-section mt-4">
+        <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Submitted Queries</h2>
+        {queries.length === 0 ? (
+          <p className="text-muted">No queries found yet.</p>
+        ) : (
+          <ListGroup>
+            {queries.map((q, index) => (
+              <ListGroup.Item key={index}>
+                <strong>{q.username}</strong> ({q.email})<br />
+                <span>{q.query}</span>
+                <br />
+                <small className="text-muted">
+                  Submitted: {new Date(q.createdAt).toLocaleString()}
+                </small>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
+      </div>
+    );
+  }
 
     function renderLander() {
         return (

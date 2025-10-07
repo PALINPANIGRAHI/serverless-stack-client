@@ -1,0 +1,28 @@
+.ContactUs {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+}
+.ContactUs form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ContactUs input,
+.ContactUs textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.ContactUs button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0066cc;
+  color: white;
+  cursor: pointer;
+}
+.status {
+  margin-top: 10px;
+  font-weight: bold;
+}
